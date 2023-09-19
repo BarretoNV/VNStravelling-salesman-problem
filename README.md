@@ -6,10 +6,10 @@ To run this code you only need to be able to run C, and select the "grafo.txt" t
 
 See and example below: 
 
-4 6
-0 7 1 3
-7 0 5 8
-1 5 0 6
-3 8 6 0
+4 6  
+0 7 1 3  
+7 0 5 8  
+1 5 0 6  
+3 8 6 0  
 
 Authors: Guilherme Barreto, Higor Brandão, Micaella Barcellos, Vinicius Monteiro
