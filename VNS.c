@@ -22,7 +22,7 @@ Grafo lerGrafo()
 {
     Grafo grafo;
     FILE *arquivo;
-    arquivo = fopen("grafo5x5.txt", "r");
+    arquivo = fopen("grafo.txt", "r");
 
     if (arquivo == NULL)
     {
@@ -70,8 +70,8 @@ void buscaVizinhancaVariavel(Grafo grafo)
     int melhorCiclo[grafo.numVertices]; // n = numVertices
     int cicloAtual[grafo.numVertices];
     int iteracoes = 0;
-    int count = 0;
-    int count2 = 0;
+    int caminhoMelhorEncontrado = 0;
+    int caminhoPiorEncontrado = 0;
 
     printf("Primeiro ciclo: ");
     for (int i = 0; i < grafo.numVertices; i++)
@@ -109,7 +109,7 @@ void buscaVizinhancaVariavel(Grafo grafo)
                     melhorCiclo[i] = cicloAtual[i];
                 }
                 vizinhanca = 1; // Reinicie a vizinhança após uma melhoria
-                count++;
+                caminhoMelhorEncontrado++;
 
                 printf("Novo melhor ciclo encontrado: ");
                 for (int i = 0; i < grafo.numVertices; i++)
@@ -124,7 +124,7 @@ void buscaVizinhancaVariavel(Grafo grafo)
             {
                 trocarCidades(cicloAtual, cidade1, cidade2);
                 vizinhanca++;
-                count2++;
+                caminhoPiorEncontrado++;
             }
         }
 
@@ -140,8 +140,8 @@ void buscaVizinhancaVariavel(Grafo grafo)
 
     printf("Custo total do ciclo: %.2lf\n", melhorCusto);
 
-    printf("Caminhos melhores encontrados: %d\n", count);
-    printf("Caminhos piores encontrados: %d\n", count2);
+    printf("Caminhos melhores encontrados: %d\n", caminhoMelhorEncontrado);
+    printf("Caminhos piores encontrados: %d\n", caminhoPiorEncontrado);
 }
 
 int main()
