@@ -6,9 +6,8 @@
 #include <math.h>
 #include <time.h>
 
-#define MAX_VERTICES 100  // Número máximo de vértices
-#define MAX_ARESTAS 1000  // Número máximo de arestas
-#define MAX_ITERACOES 10000 // Número máximo de iterações
+#define MAX_VERTICES 100     // Número máximo de vértices
+#define MAX_ITERACOES 100 // Número máximo de iterações
 
 // Estrutura para representar o grafo
 typedef struct
@@ -23,7 +22,7 @@ Grafo lerGrafo()
 {
     Grafo grafo;
     FILE *arquivo;
-    arquivo = fopen("grafo4x4.txt", "r");
+    arquivo = fopen("grafo5x5.txt", "r");
 
     if (arquivo == NULL)
     {
@@ -72,19 +71,24 @@ void buscaVizinhancaVariavel(Grafo grafo)
     int cicloAtual[grafo.numVertices];
     int iteracoes = 0;
     int count = 0;
+    int count2 = 0;
 
-    // Gere um ciclo inicial aleatório
+    printf("Primeiro ciclo: ");
     for (int i = 0; i < grafo.numVertices; i++)
     {
         cicloAtual[i] = i;
+        printf("%d -> ", cicloAtual[i]);
     }
+    printf("%d\n", cicloAtual[0]); // Volta para o início
 
     double melhorCusto = calcularCusto(cicloAtual, grafo);
+
+    printf("Primeiro Custo: %f\n", melhorCusto);
 
     while (iteracoes < MAX_ITERACOES)
     {
         int vizinhanca = 1;
-        while (vizinhanca <= 3)
+        while (vizinhanca <= 7)
         { // Experimente diferentes vizinhanças
             int cidade1, cidade2;
             do
@@ -106,11 +110,21 @@ void buscaVizinhancaVariavel(Grafo grafo)
                 }
                 vizinhanca = 1; // Reinicie a vizinhança após uma melhoria
                 count++;
+
+                printf("Novo melhor ciclo encontrado: ");
+                for (int i = 0; i < grafo.numVertices; i++)
+                {
+                    printf("%d -> ", melhorCiclo[i]);
+                }
+                printf("%d\n", melhorCiclo[0]); // Volta para o início
+
+                printf("Custo total do ciclo: %.2lf\n", melhorCusto);
             }
             else
             {
                 trocarCidades(cicloAtual, cidade1, cidade2);
                 vizinhanca++;
+                count2++;
             }
         }
 
@@ -127,12 +141,11 @@ void buscaVizinhancaVariavel(Grafo grafo)
     printf("Custo total do ciclo: %.2lf\n", melhorCusto);
 
     printf("Caminhos melhores encontrados: %d\n", count);
+    printf("Caminhos piores encontrados: %d\n", count2);
 }
 
 int main()
 {
-    system("cls");
-
     srand(time(NULL));
 
     clock_t inicio = clock();
